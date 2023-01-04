@@ -1,5 +1,7 @@
 import 'package:donate/provider/token.dart';
+import 'package:donate/screens/login_screen.dart';
 import 'package:donate/screens/make_donation_screen.dart';
+import 'package:donate/screens/ngo_login_screen.dart';
 import 'package:donate/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +22,29 @@ class MyCard extends StatelessWidget {
       width: 150,
       child: InkWell(
         onTap: () {
-          if (DataManagement.token == '') {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Please Login to Continue to Donate')));
+          if (text == 'USER') {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => const LoginScreen(),
+                    transitionsBuilder: (c, anim, a2, child) => FadeTransition(
+                          opacity: anim,
+                          child: child,
+                        ),
+                    transitionDuration: const Duration(milliseconds: 250)));
+          } else if (text == 'NGO') {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => const NgoLoginScreen(),
+                    transitionsBuilder: (c, anim, a2, child) => FadeTransition(
+                          opacity: anim,
+                          child: child,
+                        ),
+                    transitionDuration: const Duration(milliseconds: 250)));
+          } else if (DataManagement.token == '') {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please Login to Continue to Donate')));
           } else {
             !text.contains('Coming')
                 ? Navigator.push(

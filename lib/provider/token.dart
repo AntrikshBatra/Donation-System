@@ -6,6 +6,7 @@ class DataManagement {
   static String token = '';
   static String name = '';
   static String email = '';
+  static String userType = '';
   static bool logIn = false;
   static storeData(String key, String value) async {
     final instance = await SharedPreferences.getInstance();
@@ -18,6 +19,8 @@ class DataManagement {
     } else if (key == 'AuthToken') {
       token = value;
       logIn = true;
+    } else if (key == 'userType') {
+      userType = value;
     }
     print('kkkkkkkkkkkkkkkkkk');
   }
@@ -38,6 +41,8 @@ class DataManagement {
     } else if (key == 'AuthToken') {
       logIn = true;
       token = value;
+    } else if (key == 'userType') {
+      userType = value;
     }
     print('$value----------');
 
@@ -50,10 +55,12 @@ class DataManagement {
     instance.remove('AuthToken');
     instance.remove('username');
     instance.remove('email');
+    instance.remove('userType');
     token = '';
     name = '';
     email = '';
     logIn = false;
+    userType = '';
     //instance.clear();
     print('${instance.getString('AuthToken')}/////');
   }

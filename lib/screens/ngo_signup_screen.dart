@@ -1,25 +1,26 @@
-import 'package:donate/provider/token.dart';
-import 'package:donate/screens/home_screen.dart';
-import 'package:donate/screens/login_screen.dart';
-import 'package:donate/utils/colors.dart';
+import 'package:donate/screens/ngo_home_screen.dart';
+import 'package:donate/screens/ngo_login_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../apis/login.dart';
+import '../provider/token.dart';
+import '../utils/colors.dart';
 import '../widgets/text_field_input.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+class NgoSignupScreen extends StatefulWidget {
+  const NgoSignupScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<NgoSignupScreen> createState() => _NgoSignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _NgoSignupScreenState extends State<NgoSignupScreen> {
   static final RegExp emailRegExp = RegExp(
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _registrationController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -48,11 +49,11 @@ class _SignupScreenState extends State<SignupScreen> {
                       height: 40,
                     ),
                     const SizedBox(
-                        width: double.infinity,
+                        width: 200,
                         height: 190,
                         child: Image(
                           image: NetworkImage(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKljucJzmGmp6VOhiF2Gtjjk7-zh8ff-f8ZQ&usqp=CAU'),
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSosFA25lhPUbTi_sS6rT_cmtc8ep5G-BpbQ&usqp=CAU'),
                           fit: BoxFit.fill,
                         )),
                     const SizedBox(height: 20),
@@ -78,6 +79,19 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: "Enter Username...",
                         type: TextInputType.emailAddress),
                     const SizedBox(height: 10),
+                    TextFieldInput(
+                        controller: _registrationController,
+                        password: false,
+                        hintText: "Enter Registration Number Issued By Govt.",
+                        type: TextInputType.text,
+                        validate: (value) => value.toString().isEmpty
+                            ? "Enter Registration Number"
+                            : value.toString().length != 16
+                                ? "Enter Valid Registration Number"
+                                : null),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     TextFieldInput(
                         validate: (value) => value.toString().isEmpty
                             ? "Enter Password"
@@ -106,7 +120,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(height: 10),
                     InkWell(
                       onTap: () async {
-                        print('hello');
+                        print('hello NGO');
                         if (_isLoading == true) {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                               content: Text(
@@ -116,20 +130,15 @@ class _SignupScreenState extends State<SignupScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            final responseDataCollection = await SignupRequest(
-                                _nameController.text,
-                                _emailController.text,
-                                _passwordController.text);
+                            final responseDataCollection =
+                                await NgoSignupRequest(
+                                    _nameController.text,
+                                    _emailController.text,
+                                    _passwordController.text,
+                                    _registrationController.text);
 
                             print(
                                 '${responseDataCollection.toString()}---------');
-                            // if (responseDataCollection
-                            //     .toString()
-                            //     .contains('Error')) {
-                            //   ScaffoldMessenger.of(context).showSnackBar(
-                            //       const SnackBar(
-                            //           content: Text('Connection Timed Out')));
-                            // }
 
                             if (responseDataCollection["authtoken"] == null) {
                               setState(() {
@@ -148,13 +157,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                   'username', _nameController.text);
                               DataManagement.storeData(
                                   'email', _emailController.text);
-                              DataManagement.storeData('userType', 'User');
+                              DataManagement.storeData('userType', 'NGO');
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text('Login Successful')));
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
-                                      builder: ((context) => HomePage())),
+                                      builder: ((context) =>
+                                          const NgoHomeScreen())),
                                   (route) => false);
                             }
                           }
@@ -198,7 +208,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 context,
                                 PageRouteBuilder(
                                     pageBuilder: (c, a1, a2) =>
-                                        const LoginScreen(),
+                                        const NgoLoginScreen(),
                                     transitionsBuilder: (c, anim, a2, child) =>
                                         FadeTransition(
                                           opacity: anim,

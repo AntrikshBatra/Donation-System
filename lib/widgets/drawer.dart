@@ -63,18 +63,7 @@ class MyDrawer extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            CupertinoIcons.location_solid,
-            color: primaryColor,
-            size: 25,
-          ),
-          title: const Text(
-            "Track Your Box",
-            textScaleFactor: 1.14,
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        
         ListTile(
           leading: Icon(
             Icons.person,

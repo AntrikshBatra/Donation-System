@@ -8,7 +8,7 @@ Future SignupRequest(String name, String email, String password) async {
   print(map);
 
   http.Response response = await http.post(
-    Uri.parse("http://192.168.67.37:5000/api/auth/createuser"),
+    Uri.parse("http://192.168.80.37:5000/api/auth/createuser"),
     headers: <String, String>{
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
@@ -42,7 +42,7 @@ Future LoginRequest(String email, String password) async {
   print(map);
 
   http.Response response = await http.post(
-    Uri.parse("http://192.168.67.37:5000/api/auth/login"),
+    Uri.parse("http://192.168.80.37:5000/api/auth/login"),
     headers: <String, String>{
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
@@ -72,13 +72,77 @@ Future LoginRequest(String email, String password) async {
 
 Future getUsername(String value) async {
   http.Response response = await http.get(
-      Uri.parse("http://192.168.67.37:5000/api/auth/getuser"),
+      Uri.parse("http://192.168.80.37:5000/api/auth/getuser"),
       headers: <String, String>{
         'Accept': '*/*',
         'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
         'Content-Type': 'application/json',
         'auth-token': value
       });
+
+  print(response.statusCode);
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    print(jsonDecode(response.body));
+    print('hhhhhhhhhhh');
+    return jsonDecode(response.body);
+  } else {
+    print('hhhhhhhhhhhhh1111111111');
+    print('${jsonDecode(response.body)}---------------------kk');
+    return jsonDecode(response.body);
+
+    //throw Exception(json.decode(response.body));
+  }
+}
+
+Future NgoSignupRequest(
+    String name, String email, String password, String registration) async {
+  final map = jsonEncode({
+    'name': name,
+    'email': email,
+    'password': password,
+    'registration': registration
+  });
+
+  print(map);
+
+  http.Response response = await http.post(
+    Uri.parse("http://192.168.80.37:5000/api/ngo/createuser"),
+    headers: <String, String>{
+      'Accept': '*/*',
+      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+      'Content-Type': 'application/json'
+    },
+    body: map,
+  );
+
+  print(response.statusCode);
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    print(jsonDecode(response.body));
+    print('hhhhhhhhhhh');
+    return jsonDecode(response.body);
+  } else {
+    print('hhhhhhhhhhhhh1111111111');
+    print('${jsonDecode(response.body)}---------------------kk');
+    return jsonDecode(response.body);
+
+    //throw Exception(json.decode(response.body));
+  }
+}
+
+Future NgoLoginRequest(String email, String password) async {
+  final map = jsonEncode({'email': email, 'password': password});
+
+  print(map);
+
+  http.Response response = await http.post(
+    Uri.parse("http://192.168.80.37:5000/api/ngo/login"),
+    headers: <String, String>{
+      'Accept': '*/*',
+      'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+      'Content-Type': 'application/json'
+    },
+    body: map,
+  );
 
   print(response.statusCode);
   if (response.statusCode == 200 || response.statusCode == 201) {

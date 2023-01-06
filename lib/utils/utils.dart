@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 pickImage(ImageSource source, BuildContext context) async {
   final ImagePicker _picker = ImagePicker();
@@ -8,8 +9,8 @@ pickImage(ImageSource source, BuildContext context) async {
 
   if (_file != null) {
     print(_file);
-  print('nnnnnnnnnnnnnnnnnnnn');
-    return await _file.readAsBytes();
+    print('nnnnnnnnnnnnnnnnnnnn');
+    return await _file;
   }
   print(_file.toString());
   print('nnnnnnnnnnnnnnnnnnnn');

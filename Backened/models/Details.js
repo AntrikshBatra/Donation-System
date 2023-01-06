@@ -14,7 +14,7 @@ const DetailsSchema = new Schema({
         type: String,
         required: true
     },
-    image:{
+    uploadfile:{
         type: String,
         required : true 
     },

@@ -13,7 +13,7 @@ Future itemDetails(String title, String description, String ngo, String image,
   });
   print(map);
   http.Response response = await http.post(
-    Uri.parse("http://192.168.67.37:5000/api/details/adddetail/$itemType"),
+    Uri.parse("http://192.168.80.37:5000/api/details/adddetail/$itemType"),
     headers: <String, String>{
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
@@ -40,7 +40,7 @@ Future itemDetails(String title, String description, String ngo, String image,
 Future getitemDetails() async {
   print('getting item details');
   http.Response response = await http.post(
-    Uri.parse("http://192.168.67.37:5000/api/details/fetchalldetails"),
+    Uri.parse("http://192.168.80.37:5000/api/details/fetchalldetails"),
     headers: <String, String>{
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',

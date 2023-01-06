@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:donate/apis/ItemDetails.dart';
@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 //final String itemType;
 class MakeDonationScreen extends StatefulWidget {
@@ -27,9 +28,21 @@ class MakeDonationScreen extends StatefulWidget {
 }
 
 class _MakeDonationScreenState extends State<MakeDonationScreen> {
+  getFileName(String itemtype) async {
+    var request = http.MultipartRequest('POST',
+        Uri.parse('http://192.168.80.37:5000/api/details/adddetail/$itemtype'));
+    request.files.add(http.MultipartFile.fromBytes(
+        'picture', File(_file!.path).readAsBytesSync(),
+        filename: _file!.path));
+    var res = await request.send();
+    print('________________________-------------');
+    print(request.files.asMap());
+    return res;
+  }
+
   _addItemToList() {
     print('hhhhhhhhhhhhhhhhhh');
-    addItemToList(context,'in progress', _titleController.text,
+    addItemToList(context, 'in progress', _titleController.text,
         _descriptionController.text, widget.itemType.toLowerCase());
     setState(() {
       ItemTypeList.total =
@@ -99,7 +112,10 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
                         print('2222222222222');
                         // final responseDataColection = {'errors':null};
                         var responseDataColection;
+                        var imageResponse;
                         if (widget.itemType.toLowerCase() == 'footwear') {
+                          imageResponse = await getFileName('shoes');
+                          print('image response doneeeeeeeeeeeeeeeeeeeee');
                           responseDataColection = await itemDetails(
                               _titleController.text,
                               _descriptionController.text,
@@ -107,6 +123,7 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
                               'in process',
                               'shoes');
                         } else {
+                          imageResponse = await getFileName('clothes');
                           responseDataColection = await itemDetails(
                               _titleController.text,
                               _descriptionController.text,
@@ -180,7 +197,7 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
                 ),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  Uint8List file = await pickImage(ImageSource.camera, context);
+                  dynamic file = await pickImage(ImageSource.camera, context);
                   setState(() {
                     _file = file;
                   });
@@ -250,7 +267,7 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  Uint8List? _file;
+  dynamic _file;
   bool vis = false;
   bool otherVis = true;
   String _selectedNGO = 'Select NGO*';
@@ -342,9 +359,7 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
                     height: 300,
                     width: 250,
                     child: Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: MemoryImage(_file!), fit: BoxFit.fill)),
+                      child: Image.file(File(_file.path)),
                     ),
                   ),
                 )

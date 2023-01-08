@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:donate/apis/login.dart';
 import 'package:donate/model/item.dart';
 import 'package:donate/provider/token.dart';
 import 'package:donate/widgets/make_donationWidgets/add_items.dart';
@@ -11,7 +12,7 @@ class DonationItems extends ChangeNotifier {
 
   Future getDonationDetails(BuildContext context) async {
     http.Response response = await http.get(
-        Uri.parse("http://192.168.67.37:5000/api/details/fetchalldetails"),
+        Uri.parse("$base/api/details/fetchalldetails"),
         headers: <String, String>{
           'Accept': '*/*',
           'User-Agent': 'Thunder Client (https://www.thunderclient.com)',

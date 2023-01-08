@@ -1,3 +1,5 @@
+import 'package:donate/apis/login.dart';
+import 'package:donate/provider/token.dart';
 import 'package:donate/screens/ngo_home_screen.dart';
 import 'package:donate/screens/ngo_signup_screen.dart';
 import 'package:donate/screens/signup_screen.dart';
@@ -79,17 +81,69 @@ class _NgoLoginScreenState extends State<NgoLoginScreen> {
                 InkWell(
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (c, a1, a2) => const NgoHomeScreen(),
-                              transitionsBuilder: (c, anim, a2, child) =>
-                                  FadeTransition(
-                                    opacity: anim,
-                                    child: child,
-                                  ),
-                              transitionDuration:
-                                  const Duration(milliseconds: 250)));
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      final responseDataCollection = await NgoLoginRequest(
+                          _emailController.text, _passwordController.text);
+                      if (responseDataCollection["authtoken"] == null) {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                responseDataCollection["error"].toString())));
+                      } else {
+                        String value =
+                            responseDataCollection["authtoken"].toString();
+                        DataManagement.storeData("AuthToken", value);
+                        DataManagement.storeData(
+                            "email", _emailController.text);
+                        print('*************');
+                        print(value);
+                        print('nnnnnnnnnnnnnnnnnnnnn');
+                        final usernameResponse = await getNGOUsername(value);
+                        if (usernameResponse['error'] != null) {
+                          DataManagement.clear("AuthToken");
+                          DataManagement.clear("username");
+                          DataManagement.clear('email');
+                          print('lllllllllllllllllllllllllllllllllllllllllll');
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'Something Went Wrong. Try Again Later')));
+                        } else {
+                          print(usernameResponse);
+                          print('bbbbbbbbbbbbbbbbbbbb');
+                          print(usernameResponse["name"].toString());
+                          String userrname =
+                              usernameResponse["name"].toString();
+                          setState(() {
+                            DataManagement.storeData('username', userrname);
+                            DataManagement.storeData('userType', 'NGO');
+                            _isLoading = false;
+                          });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Login Successful')));
+
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      const NgoHomeScreen(),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                        opacity: anim,
+                                        child: child,
+                                      ),
+                                  transitionDuration:
+                                      const Duration(milliseconds: 250)));
+                        }
+                      }
                     }
                   },
                   child: Container(

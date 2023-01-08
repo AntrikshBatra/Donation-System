@@ -54,10 +54,10 @@ class BoxItems extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(8)))),
                   height: 39,
                   width: 352,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(top: 7, left: 6),
                     child: Text(
-                      'Footwear',
+                      'Footwear (${ItemTypeList.footwear.length})',
                       style: TextStyle(color: Colors.white, fontSize: 18),
                       textAlign: TextAlign.left,
                     ),
@@ -94,6 +94,8 @@ class BoxItems extends StatelessWidget {
                         : ListView.builder(
                             itemCount: ItemTypeList.footwear.length,
                             itemBuilder: (BuildContext context, int index) {
+                              print(ItemTypeList.footwear[index].photo);
+                              print('88888888888&******************');
                               return Padding(
                                 padding: const EdgeInsets.only(top: 3),
                                 child: Container(
@@ -130,15 +132,15 @@ class BoxItems extends StatelessWidget {
                                           style: TextStyle(color: Colors.green),
                                         ),
                                       ),
-                                      // Container(
-                                      //   height: 33,
-                                      //   width: 30,
-                                      //   decoration: BoxDecoration(
-                                      //       image: DecorationImage(
-                                      //           image: MemoryImage(ItemTypeList
-                                      //               .footwear[index].photo),
-                                      //           fit: BoxFit.fill)),
-                                      // )
+                                      Container(
+                                        height: 33,
+                                        width: 30,
+                                        decoration: BoxDecoration(),
+                                        child: Image.asset(
+                                          'Backened/uploads/${ItemTypeList.footwear[index].photo}',
+                                          fit: BoxFit.fill,
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -154,10 +156,10 @@ class BoxItems extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(8)))),
                   height: 39,
                   width: 352,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(top: 7, left: 6),
                     child: Text(
-                      'Clothes',
+                      'Clothes (${ItemTypeList.clothes.length})',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                       textAlign: TextAlign.left,
                     ),
@@ -215,7 +217,7 @@ class BoxItems extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 8),
                                         child: SizedBox(
-                                          width: 105,
+                                          width: 30,
                                           child: Text(
                                             '${ItemTypeList.clothes[index].title}',
                                             overflow: TextOverflow.ellipsis,
@@ -230,21 +232,16 @@ class BoxItems extends StatelessWidget {
                                           style: TextStyle(color: Colors.green),
                                         ),
                                       ),
-                                      // Padding(
-                                      //   padding:
-                                      //       const EdgeInsets.only(right: 10),
-                                      //   child: Container(
-                                      //     height: 33,
-                                      //     width: 30,
-                                      //     decoration: BoxDecoration(
-                                      //         image: DecorationImage(
-                                      //             image: MemoryImage(
-                                      //                 ItemTypeList
-                                      //                     .clothes[index]
-                                      //                     .photo),
-                                      //             fit: BoxFit.fill)),
-                                      //   ),
-                                      // )
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          height: 33,
+                                          width: 30,
+                                          decoration: BoxDecoration(),
+                                          child: Image.asset('Backened/uploads/${ItemTypeList.clothes[index].photo}')
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),

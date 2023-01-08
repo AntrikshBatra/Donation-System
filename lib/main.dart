@@ -3,6 +3,7 @@ import 'package:donate/provider/token.dart';
 import 'package:donate/provider/usernameProvider.dart';
 import 'package:donate/screens/home_screen.dart';
 import 'package:donate/screens/ngo_home_screen.dart';
+import 'package:donate/screens/selectScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,9 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Donation App',
         theme: ThemeData.light(),
-        home: DataManagement.userType == 'NGO'
-            ? const NgoHomeScreen()
-            : const HomePage(),
+        home: const selectScreen()
       ),
     );
   }

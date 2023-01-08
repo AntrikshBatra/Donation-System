@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:donate/apis/ItemDetails.dart';
+import 'package:donate/apis/login.dart';
 import 'package:donate/model/item.dart';
+import 'package:donate/provider/token.dart';
 import 'package:donate/screens/home_screen.dart';
 import 'package:donate/screens/list_screen.dart';
 import 'package:donate/utils/colors.dart';
@@ -28,16 +31,27 @@ class MakeDonationScreen extends StatefulWidget {
 }
 
 class _MakeDonationScreenState extends State<MakeDonationScreen> {
-  getFileName(String itemtype) async {
-    var request = http.MultipartRequest('POST',
-        Uri.parse('http://192.168.80.37:5000/api/details/adddetail/$itemtype'));
+  getFileName() async {
+    print('9999999999999999999999999');
+    Map<String, String> headers = {"auth-token": DataManagement.token};
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('$base/api/details/images'));
+    print('8888888888888888888888');
+    request.headers.addAll(headers);
+    print('fffffffffffffffffffffffffffffffff');
     request.files.add(http.MultipartFile.fromBytes(
-        'picture', File(_file!.path).readAsBytesSync(),
+        'image', File(_file!.path).readAsBytesSync(),
         filename: _file!.path));
+    print('777777777777777777777777777');
+    // ignore: avoid_print
     var res = await request.send();
+    var ans = await res.stream.bytesToString();
     print('________________________-------------');
+    print(ans);
+    var enc = json.decode(ans);
+    print(enc["savedDetail"]["uploadFile"]["filename"]);
     print(request.files.asMap());
-    return res;
+    return enc["savedDetail"]["uploadFile"]["filename"];
   }
 
   _addItemToList() {
@@ -114,21 +128,25 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
                         var responseDataColection;
                         var imageResponse;
                         if (widget.itemType.toLowerCase() == 'footwear') {
-                          imageResponse = await getFileName('shoes');
+                          imageResponse = await getFileName();
                           print('image response doneeeeeeeeeeeeeeeeeeeee');
                           responseDataColection = await itemDetails(
                               _titleController.text,
                               _descriptionController.text,
                               _selectedNGO,
-                              'in process',
+                              imageResponse.toString(),
                               'shoes');
                         } else {
-                          imageResponse = await getFileName('clothes');
+                          Navigator.of(context).pop();
+                          var responseDataColection;
+                          var imageResponse;
+                          imageResponse = await getFileName();
+                          print('mbzcjzVshdjhbg=============');
                           responseDataColection = await itemDetails(
                               _titleController.text,
                               _descriptionController.text,
                               _selectedNGO,
-                              'in process',
+                              imageResponse.toString(),
                               widget.itemType.toLowerCase());
                         }
 

@@ -1,5 +1,6 @@
 import 'package:donate/provider/usernameProvider.dart';
 import 'package:donate/screens/usertype.dart';
+import 'package:donate/widgets/Ngo_drawer.dart';
 import 'package:donate/widgets/carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,15 +28,15 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: const Text('Donate'),
-                backgroundColor: primaryColor,
+                backgroundColor: Colors.purple,
                 centerTitle: true,
                 actions: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 12, 10, 10),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color?>(primaryColor),
+                          backgroundColor: MaterialStateProperty.all<Color?>(
+                              Colors.deepPurpleAccent),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   const RoundedRectangleBorder(
@@ -48,6 +49,7 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
                             DataManagement.clear('AuthToken');
                             DataManagement.clear('username');
                             DataManagement.clear('email');
+                            DataManagement.clear('userType');
                             value.authtoken = '';
                           });
 
@@ -55,6 +57,7 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
                               const SnackBar(content: Text('Logging out....')));
                         }
                         value.RemoveUsername();
+                        value.RemoveUserType();
                         Navigator.push(
                             context,
                             PageRouteBuilder(
@@ -111,20 +114,19 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
                       child: Container(
                         height: 100,
                         width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            gradient: const LinearGradient(
-                                colors: [Colors.blueAccent, Colors.blueGrey],
-                                begin: Alignment.centerLeft,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Colors.purple, Colors.indigoAccent],
+                                begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                                 stops: [1, 1]),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: const Center(
                           child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
-                              '"Alone We Can Do So Little, Together We Can Do So Much"',
+                              '"Happiness doesn’t result from what we get, but from what we give"',
                               textAlign: TextAlign.center,
                               maxLines: 4,
                               style: TextStyle(color: commonBg, fontSize: 18),
@@ -136,19 +138,20 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    const Divider(thickness: 2),
                     const Padding(
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
                       child: SizedBox(
                         height: 45,
                         width: double.infinity,
                         child: Text(
-                          'YOU CAN DONATE IN FOLLOWING CATEGORIES',
+                          'Donation Section',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 30),
                         ),
                       ),
                     ),
-                    const Divider(thickness: 2),
+
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                     //   child: Row(
@@ -286,10 +289,28 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
                     //     ),
                     //   ],
                     // )
+
+                    Container(
+                      height: 130,
+                      width: 340,
+                      decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.purple, Colors.indigoAccent],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight),
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: const Center(
+                        child: Text(
+                          'REQUESTS',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              drawer: const SafeArea(child: MyDrawer()),
+              drawer: const SafeArea(child: NGODrawer()),
             );
           }),
         ));

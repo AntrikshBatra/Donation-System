@@ -51,31 +51,31 @@ class MyDrawer extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            CupertinoIcons.heart_circle_fill,
-            color: primaryColor,
-            size: 25,
-          ),
-          title: const Text(
-            "Donation History",
-            textScaleFactor: 1.14,
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        // ListTile(
+        //   leading: Icon(
+        //     CupertinoIcons.heart_circle_fill,
+        //     color: primaryColor,
+        //     size: 25,
+        //   ),
+        //   title: const Text(
+        //     "Donation History",
+        //     textScaleFactor: 1.14,
+        //     style: TextStyle(color: Colors.black),
+        //   ),
+        // ),
         
-        ListTile(
-          leading: Icon(
-            Icons.person,
-            color: primaryColor,
-            size: 25,
-          ),
-          title: const Text(
-            "Profile Settings",
-            textScaleFactor: 1.14,
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        // ListTile(
+        //   leading: Icon(
+        //     Icons.person,
+        //     color: primaryColor,
+        //     size: 25,
+        //   ),
+        //   title: const Text(
+        //     "Profile Settings",
+        //     textScaleFactor: 1.14,
+        //     style: TextStyle(color: Colors.black),
+        //   ),
+        // ),
         ListTile(
           leading: Icon(
             Icons.help,

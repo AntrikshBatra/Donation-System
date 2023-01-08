@@ -16,7 +16,7 @@ const { body, validationResult } = require('express-validator');
 // })
 
 // ROUTE 2:  Add a new Detail using: POST "/api/status/addstatus". login required
-router.post('/addstatus/', [
+router.post('/addstatus', [
     body('status', 'Status must be there').exists(),
 ], async (req, res) => {
     try {

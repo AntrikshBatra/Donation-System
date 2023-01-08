@@ -12,14 +12,15 @@ const DetailsSchema = new Schema({
     },
     description:{
         type: String,
+        required: true,
+        // unique: true
+    },
+    image:{
+        type: String,
         required: true
     },
-    uploadfile:{
-        type: String,
-        required : true 
-    },
     category:{
-        type: String,
+        type: String
     },
     date:{
         type: Date,
@@ -27,4 +28,5 @@ const DetailsSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('details', DetailsSchema);
+const Detail = mongoose.model('detail', DetailsSchema);
+module.exports = Detail;

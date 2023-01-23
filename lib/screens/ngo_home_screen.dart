@@ -1,4 +1,5 @@
 import 'package:donate/provider/usernameProvider.dart';
+import 'package:donate/screens/ngo_list_screen.dart';
 import 'package:donate/screens/usertype.dart';
 import 'package:donate/widgets/Ngo_drawer.dart';
 import 'package:donate/widgets/carousel.dart';
@@ -290,20 +291,35 @@ class _NgoHomeScreenState extends State<NgoHomeScreen> {
                     //   ],
                     // )
 
-                    Container(
-                      height: 130,
-                      width: 340,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.purple, Colors.indigoAccent],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: const Center(
-                        child: Text(
-                          'REQUESTS',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 25),
+                    InkWell(
+                      onTap: (){
+                         Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (c, a1, a2) => const NGOListScreen(),
+                                transitionsBuilder: (c, anim, a2, child) =>
+                                    FadeTransition(
+                                      opacity: anim,
+                                      child: child,
+                                    ),
+                                transitionDuration:
+                                    const Duration(milliseconds: 250)));
+                      },
+                      child: Container(
+                        height: 130,
+                        width: 340,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Colors.purple, Colors.indigoAccent],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: const Center(
+                          child: Text(
+                            'REQUESTS',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
                         ),
                       ),
                     ),

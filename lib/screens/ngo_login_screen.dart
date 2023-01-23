@@ -130,18 +130,13 @@ class _NgoLoginScreenState extends State<NgoLoginScreen> {
                                   content: Text('Login Successful')));
 
                           // ignore: use_build_context_synchronously
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  pageBuilder: (c, a1, a2) =>
-                                      const NgoHomeScreen(),
-                                  transitionsBuilder: (c, anim, a2, child) =>
-                                      FadeTransition(
-                                        opacity: anim,
-                                        child: child,
-                                      ),
-                                  transitionDuration:
-                                      const Duration(milliseconds: 250)));
+                         ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Login Successful')));
+
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: ((context) =>const NgoHomeScreen())),
+                            (route) => false);
                         }
                       }
                     }

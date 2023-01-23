@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-String base = 'http://:5000';
+
+String base = '';
+
 Future SignupRequest(String name, String email, String password) async {
   final map = jsonEncode({'name': name, 'email': email, 'password': password});
 

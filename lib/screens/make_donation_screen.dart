@@ -288,7 +288,7 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
   dynamic _file;
   bool vis = false;
   bool otherVis = true;
-  String _selectedNGO = 'Select NGO*';
+  String _selectedNGO = 'ONE';
   List<String> _ngo = ['Select NGO*', 'ONE', 'TWO', 'THREE', 'FOUR'];
 
   @override
@@ -447,35 +447,35 @@ class _MakeDonationScreenState extends State<MakeDonationScreen> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: SizedBox(
-              width: double.infinity,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(8)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                      hint: const Text('Select NGO*'),
-                      value: _selectedNGO,
-                      items: _ngo.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      underline: const SizedBox(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedNGO = newValue!;
-                        });
-                      }),
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 25),
+          //   child: SizedBox(
+          //     width: double.infinity,
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //           color: Colors.grey[300],
+          //           borderRadius: BorderRadius.circular(8)),
+          //       child: Padding(
+          //         padding: const EdgeInsets.symmetric(horizontal: 10),
+          //         child: DropdownButton(
+          //             hint: const Text('Select NGO*'),
+          //             value: _selectedNGO,
+          //             items: _ngo.map((String value) {
+          //               return DropdownMenuItem<String>(
+          //                 value: value,
+          //                 child: Text(value),
+          //               );
+          //             }).toList(),
+          //             underline: const SizedBox(),
+          //             onChanged: (String? newValue) {
+          //               setState(() {
+          //                 _selectedNGO = newValue!;
+          //               });
+          //             }),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             height: 20,
           ),

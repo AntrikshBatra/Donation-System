@@ -2,6 +2,8 @@ import 'package:donate/provider/token.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/ngo_list_screen.dart';
+
 class NGODrawer extends StatefulWidget {
   const NGODrawer({super.key});
 
@@ -33,7 +35,18 @@ class _NGODrawerState extends State<NGODrawer> {
                     : const Text('abc@email.com'),
               )),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => const NGOListScreen(),
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(
+                            opacity: anim,
+                            child: child,
+                          ),
+                      transitionDuration: const Duration(milliseconds: 250)));
+            },
             leading: const Icon(
               Icons.pending_actions,
               size: 25,

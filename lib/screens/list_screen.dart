@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'item_description.dart';
+
 class BoxItems extends StatelessWidget {
   const BoxItems({Key? key}) : super(key: key);
 
@@ -94,54 +96,82 @@ class BoxItems extends StatelessWidget {
                         : ListView.builder(
                             itemCount: ItemTypeList.footwear.length,
                             itemBuilder: (BuildContext context, int index) {
-                              print(ItemTypeList.footwear[index].photo);
-                              print('88888888888&******************');
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Container(
-                                  height: 45,
-                                  width: 345,
-                                  padding: EdgeInsets.only(left: 5),
-                                  decoration: const ShapeDecoration(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)))),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        '${index + 1}',
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 8),
-                                        child: SizedBox(
-                                          width: 30,
-                                          child: Text(
-                                            '${ItemTypeList.footwear[index].title}',
-                                            overflow: TextOverflow.ellipsis,
+                              // print(ItemTypeList.footwear[index].photo);
+                              // print('88888888888&******************');
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                          pageBuilder: (c, a1, a2) =>
+                                              ItemDescription(
+                                                image: ItemTypeList
+                                                    .footwear[index].photo,
+                                                description: ItemTypeList
+                                                    .footwear[index]
+                                                    .description,
+                                                title: ItemTypeList
+                                                    .footwear[index].title,
+                                                userType: 'User',
+                                              ),
+                                          transitionsBuilder:
+                                              (c, anim, a2, child) =>
+                                                  FadeTransition(
+                                                    opacity: anim,
+                                                    child: child,
+                                                  ),
+                                          transitionDuration: const Duration(
+                                              milliseconds: 250)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Container(
+                                    height: 45,
+                                    width: 345,
+                                    padding: EdgeInsets.only(left: 5),
+                                    decoration: const ShapeDecoration(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          '${index + 1}',
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: SizedBox(
+                                            width: 30,
+                                            child: Text(
+                                              '${ItemTypeList.footwear[index].title}',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 25, right: 70),
-                                        child: Text(
-                                          'In Progress',
-                                          style: TextStyle(color: Colors.green),
+                                        const Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 25, right: 70),
+                                          child: Text(
+                                            'In Progress',
+                                            style:
+                                                TextStyle(color: Colors.green),
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        height: 33,
-                                        width: 30,
-                                        decoration: BoxDecoration(),
-                                        child: Image.asset(
-                                          'Backened/uploads/${ItemTypeList.footwear[index].photo}',
-                                          fit: BoxFit.fill,
-                                        ),
-                                      )
-                                    ],
+                                        Container(
+                                          height: 33,
+                                          width: 30,
+                                          decoration: BoxDecoration(),
+                                          child: Image.asset(
+                                            'Backened/uploads/${ItemTypeList.footwear[index].photo}',
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -196,53 +226,81 @@ class BoxItems extends StatelessWidget {
                         : ListView.builder(
                             itemCount: ItemTypeList.clothes.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Container(
-                                  height: 45,
-                                  width: 345,
-                                  padding: EdgeInsets.only(left: 5),
-                                  decoration: const ShapeDecoration(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)))),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        '${index + 1}',
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 8),
-                                        child: SizedBox(
-                                          width: 30,
-                                          child: Text(
-                                            '${ItemTypeList.clothes[index].title}',
-                                            overflow: TextOverflow.ellipsis,
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                          pageBuilder: (c, a1, a2) =>
+                                              ItemDescription(
+                                                image: ItemTypeList
+                                                    .clothes[index].photo,
+                                                description: ItemTypeList
+                                                    .clothes[index]
+                                                    .description,
+                                                title: ItemTypeList
+                                                    .clothes[index].title,
+                                                userType: 'User',
+                                              ),
+                                          transitionsBuilder:
+                                              (c, anim, a2, child) =>
+                                                  FadeTransition(
+                                                    opacity: anim,
+                                                    child: child,
+                                                  ),
+                                          transitionDuration: const Duration(
+                                              milliseconds: 250)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Container(
+                                    height: 45,
+                                    width: 345,
+                                    padding: EdgeInsets.only(left: 5),
+                                    decoration: const ShapeDecoration(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          '${index + 1}',
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: SizedBox(
+                                            width: 30,
+                                            child: Text(
+                                              '${ItemTypeList.clothes[index].title}',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 25, right: 70),
-                                        child: Text(
-                                          'In Progress',
-                                          style: TextStyle(color: Colors.green),
+                                        const Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 25, right: 70),
+                                          child: Text(
+                                            'In Progress',
+                                            style:
+                                                TextStyle(color: Colors.green),
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10),
-                                        child: Container(
-                                          height: 33,
-                                          width: 30,
-                                          decoration: BoxDecoration(),
-                                          child: Image.asset('Backened/uploads/${ItemTypeList.clothes[index].photo}')
-                                        ),
-                                      )
-                                    ],
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: Container(
+                                              height: 33,
+                                              width: 30,
+                                              decoration: BoxDecoration(),
+                                              child: Image.asset(
+                                                  'Backened/uploads/${ItemTypeList.clothes[index].photo}')),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

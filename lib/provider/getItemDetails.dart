@@ -20,11 +20,11 @@ class DonationItems extends ChangeNotifier {
           'auth-token': DataManagement.token
         });
 
-    print(response.statusCode);
+    // print(response.statusCode);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(jsonDecode(response.body));
-      print('hhhhhhhhhhh');
-      print(response);
+      // print(jsonDecode(response.body));
+      // print('hhhhhhhhhhh');
+      // print(response);
       ItemTypeList.footwear.clear();
       ItemTypeList.clothes.clear();
       for (var donation in json.decode(response.body)) {
@@ -36,11 +36,46 @@ class DonationItems extends ChangeNotifier {
               donation["description"], 'clothes');
         }
       }
-      print('33333333333333333333');
-      print(ItemTypeList.footwear.length);
+      // print('33333333333333333333');
+      // print(ItemTypeList.clothes.length);
     } else {
       print('hhhhhhhhhhhhh1111111111');
       print('${jsonDecode(response.body)}---------------------kk');
+      //throw Exception(json.decode(response.body));
+    }
+    notifyListeners();
+  }
+
+  Future getNGODonationDetails(BuildContext context) async {
+    http.Response response = await http.get(
+        Uri.parse("$base/api/details/fetchalldetail"),
+        headers: <String, String>{
+          'Accept': '*/*',
+          'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+          'Content-Type': 'application/json',
+        });
+
+    // print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print(jsonDecode(response.body));
+      // print('hhhhhhhhhhh');
+      // print(response);
+      ItemTypeList.footwear.clear();
+      ItemTypeList.clothes.clear();
+      for (var donation in json.decode(response.body)) {
+        if (donation["category"].toString() == 'shoes')
+          addItemToList(context, donation["image"], donation["title"],
+              donation["description"], 'footwear');
+        else {
+          addItemToList(context, donation["image"], donation["title"],
+              donation["description"], 'clothes');
+        }
+      }
+      // print('33333333333333333333');
+      // print(ItemTypeList.footwear.length);
+    } else {
+      // print('hhhhhhhhhhhhh1111111111');
+      // print('${jsonDecode(response.body)}---------------------kk');
       //throw Exception(json.decode(response.body));
     }
     notifyListeners();
